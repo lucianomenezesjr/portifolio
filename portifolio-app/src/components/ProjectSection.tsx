@@ -4,6 +4,7 @@ import ProjectCard from "@/components/ProjectCard";
 export default function ProjectsSection() {
   const projects = [
     {
+      projectId: "CDA", 
       title: "Sistema de Controle de Acessos",
       objective: "Controle de acesso em ambientes escolares ou facultades.",
       description: "Desenvolvimento de um sistema para controle de acesso escolar/faculdade...",
@@ -12,6 +13,7 @@ export default function ProjectsSection() {
       technologies: ["ASP.NET", "Supabase (Postgres)", "Next.js"],
     },
     {
+      projectId: "Alure",
       title: "Sistema de Loja de Roupas",
       objective: "Gerenciamento completo de uma loja de roupas com funcionalidades de e-commerce.",
       description: "Desenvolvimento de um sistema completo com backend e frontend integrados...",
@@ -20,6 +22,7 @@ export default function ProjectsSection() {
       technologies: ["ASP.NET", "Postgres", "Next.js", "React", "Docker"],
     },
     {
+      projectId: "ExtracaoDeDados", // ID para a rota
       title: "API de Extração de Dados de Notas Fiscais",
       objective: "Extração automatizada de dados de notas fiscais em PDF ou imagem.",
       description: "API em Python (FastAPI) para extração de dados de notas fiscais...",
@@ -37,7 +40,6 @@ export default function ProjectsSection() {
           <ProjectCard
             key={idx}
             {...proj}
-            direction={idx % 2 === 0 ? "left" : "right"} // alterna esquerda/direita
           />
         ))}
       </div>
