@@ -6,7 +6,7 @@ export default function ProjectsSection() {
     {
       projectId: "CDA", 
       title: "Sistema de Controle de Acessos",
-      objective: "Controle de acesso em ambientes escolares ou facultades.",
+      objective: "Controle de acesso em ambientes escolares ou faculdades.",
       description: "Desenvolvimento de um sistema para controle de acesso escolar/faculdade...",
       languages: ["C#", "JavaScript", "TypeScript", "SQL", "React.js"],
       skills: ["Desenvolvimento Backend", "Desenvolvimento Frontend", "Autenticação JWT", "UI/UX"],
