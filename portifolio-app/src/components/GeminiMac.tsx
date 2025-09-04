@@ -7,7 +7,7 @@ export function GeminiMac() {
       <MacbookScroll
         title={
           <span>
-            This Macbook is built with Tailwindcss. <br /> No kidding.
+            Extração de Dados <br /> Com Gemini.
           </span>
         }
         src={`/GeminiAPI/methodPostv2.png`}
