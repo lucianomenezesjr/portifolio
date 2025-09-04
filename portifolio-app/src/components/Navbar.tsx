@@ -24,8 +24,8 @@ export default function Navbar({ className }: { className?: string }) {
             />
             <ProductItem
               title="Controle de Acesso"
-              href="Projetos/ControleDeAcesso"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
+              href="/Projetos/CDA"
+              src="/CdaImagens/home_cda.png"
               description="Plataforma de controle de acesso escolar, com autenticação JWT e dashboard completo."
             />
             <ProductItem

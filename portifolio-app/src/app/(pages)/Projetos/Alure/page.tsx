@@ -1,4 +1,5 @@
 "use client";
+
 import { AlureLine } from "@/components/AlureLine";
 import MacModel from "@/components/MacModel";
 import Navbar from "@/components/Navbar";
@@ -11,7 +12,7 @@ export default function AlurePage() {
         <div className="text-white">
             <Navbar className="top-2 z-50" />
             <div className="flex flex-col">
-                <TitleProjects />
+                <TitleProjects titulo="Alure" />
                 <div className="flex h-screen w-full">
                     <MacModel />
                 </div>
