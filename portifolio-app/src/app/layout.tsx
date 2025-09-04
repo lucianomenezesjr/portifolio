@@ -24,7 +24,7 @@ export default function RootLayout({
         <div className="flex-grow">
           {children}
         </div>
-        <Toaster richColors position="bottom-left" theme="dark" />
+        <Toaster richColors position="top-right" theme="dark" />
         <Footer />
       </body>
     </html>

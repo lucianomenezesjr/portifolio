@@ -31,7 +31,7 @@ export default function ProjectsSection() {
 
   return (
     <section className="w-full max-w-6xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold text-center text-white mb-12">Projetos</h1>
+      <h1 className="text-2xl font-semibold text-center text-white mb-6 underline">Projetos</h1>
       <div className="grid gap-8">
         {projects.map((proj, idx) => (
           <ProjectCard

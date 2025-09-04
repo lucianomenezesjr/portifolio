@@ -8,6 +8,7 @@ import AboutMe from "@/components/About";
 import { motion } from "framer-motion";
 import ProjectsSection from "@/components/ProjectSection";
 import { TechCards } from "@/components/TechCards";
+import ContactForms from "@/components/ContactForms";
 
 
 export default function Home() {
@@ -74,6 +75,8 @@ export default function Home() {
           </motion.div>
           <ProjectsSection />
           <TechCards />
+          <ContactForms />
+          <div className="mb-6" />
         </div>
       </div>
     </div>

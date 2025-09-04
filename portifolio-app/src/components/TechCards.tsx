@@ -3,7 +3,7 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 export function TechCards() {
   return (
     <div className="max-w-6xl mx-auto px-8">
-      <h1 className="text-4xl font-bold text-center text-white mb-12">Tecnologias</h1>
+      <h1 className="text-2xl font-bold text-center underline text-white">Tecnologias</h1>
       <HoverEffect items={technologies} />
     </div>
   );
