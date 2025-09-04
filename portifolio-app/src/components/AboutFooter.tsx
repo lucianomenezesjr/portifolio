@@ -13,7 +13,7 @@ export default function AboutFooter() {
 
     return(
         <div className="flex flex-row justify-between w-full items-center px-5">
-            <div className="pt-6">
+            <div className="pt-6 mr-6">
                 <a
                 href="/curriculoLucianojrV2.pdf"
                 download="Luciano_Junior_CV.pdf"
