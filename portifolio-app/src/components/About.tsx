@@ -1,10 +1,14 @@
 "use client";
+
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import AboutFooter from "@/components/AboutFooter";
+
 
 export default function AboutMe() {
+
   return (
-    <section id="about" className="bg-[#141313] rounded-xl text-gray-200 py-16 px-6">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <section id="about" className="bg-[#141313] rounded-xl text-gray-200 py-8 px-6">
+      <div className="max-w-5xl mx-auto flex flex-col items-start">
 
         {/* Texto */}
         <div className="flex-1">
@@ -28,8 +32,9 @@ export default function AboutMe() {
             <strong> testes</strong> e conteinerização com <strong>Docker</strong>. 
             Busco sempre evoluir e aplicar boas práticas de desenvolvimento em cada projeto.
           </p>
-          
         </div>
+        <AboutFooter />
+        
       </div>
     </section>
   );
