@@ -7,7 +7,7 @@ import AboutFooter from "@/components/AboutFooter";
 export default function AboutMe() {
 
   return (
-    <section id="about" className="bg-[#141313] rounded-xl text-gray-200 py-8 px-6">
+    <section id="about" className="bg-[#141313] rounded-xl text-gray-200 py-8 px-6 shadow-[0_0_25px_rgba(168,85,247,0.3)]">
       <div className="max-w-5xl mx-auto flex flex-col items-start">
 
         {/* Texto */}
