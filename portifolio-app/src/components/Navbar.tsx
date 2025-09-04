@@ -37,7 +37,7 @@ export default function Navbar({ className }: { className?: string }) {
             
           </div>
         </MenuItem>
-        <Link href="#contato" scroll={true}>
+        <Link href="/#contato" scroll={true}>
           <MenuItem setActive={setActive} active={active} item="Contato" />
         </Link>
       </Menu>
