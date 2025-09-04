@@ -73,9 +73,15 @@ export default function Home() {
           >
             <AboutMe />
           </motion.div>
-          <ProjectsSection />
+          <div className="bg-[#1c0f2741] w-screen py-4">
+            <ProjectsSection />
+          </div>
           <TechCards />
-          <ContactForms />
+          <div className="bg-[#1c0f27a1] w-screen py-4 flex flex-col gap-2">
+            <h1 className="text-2xl font-bold text-center underline text-white">Contato</h1>
+            <ContactForms />
+          </div>
+          
           <div className="mb-6" />
         </div>
       </div>

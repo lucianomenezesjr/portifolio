@@ -10,47 +10,53 @@ export default function ContactForms() {
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const [loading, setLoading] = useState(false); // <-- adicionado
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true); // inicia loading
+
+    const webhookUrl =
+      "https://discord.com/api/webhooks/1413136049311584276/FUllP5C9-gBEHjkvRalmpM0CpW_845g0XoZa-9gXljyZaoq2fU-GhFfpcUc6zBoBg2vQ";
+
+    const payload = {
+      embeds: [
+        {
+          title: "📩 Nova mensagem de contato",
+          color: 0x9b59b6,
+          fields: [
+            { name: "👤 Nome", value: form.name, inline: false },
+            { name: "📧 Email", value: form.email, inline: false },
+            { name: "💬 Mensagem", value: form.message, inline: false },
+          ],
+          footer: { text: "Formulário do portfólio" },
+          timestamp: new Date().toISOString(),
+        },
+      ],
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    try {
+      await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-        const webhookUrl = "https://discord.com/api/webhooks/1413136049311584276/FUllP5C9-gBEHjkvRalmpM0CpW_845g0XoZa-9gXljyZaoq2fU-GhFfpcUc6zBoBg2vQ";
-
-        const payload = {
-        embeds: [
-            {
-            title: "📩 Nova mensagem de contato",
-            color: 0x9b59b6, // Roxo
-            fields: [
-                { name: "👤 Nome", value: form.name, inline: false },
-                { name: "📧 Email", value: form.email, inline: false },
-                { name: "💬 Mensagem", value: form.message, inline: false },
-            ],
-            footer: {
-                text: "Formulário do portfólio",
-            },
-            timestamp: new Date().toISOString(),
-            },
-        ],
-        };
-
-        try {
-        await fetch(webhookUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-        });
-
-        toast.success("Mensagem enviada com sucesso! 🚀")
-        setForm({ name: "", email: "", message: "" });
-        } catch (error) {
-        toast.error("Erro ao enviar a mensagem! 🚀")
-        console.error(error);
-        }
-    };
+      toast.success("Mensagem enviada com sucesso! 🚀");
+      setForm({ name: "", email: "", message: "" });
+    } catch (error) {
+      toast.error("Erro ao enviar a mensagem! 🚀");
+      console.error(error);
+    } finally {
+      setLoading(false); // encerra loading
+    }
+  };
 
   return (
     <motion.div
@@ -64,10 +70,16 @@ export default function ContactForms() {
         Entre em Contato
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-5 w-md flex flex-col items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-5 w-xl max-w-md flex flex-col items-center"
+      >
         {/* Nome */}
-        <div className="flex flex-col items-start w-sm">
-          <label htmlFor="name" className="flex text-sm text-start font-semibold text-gray-300 mb-1 ml-2 items-start">
+        <div className="w-full">
+          <label
+            htmlFor="name"
+            className="block text-sm font-semibold text-gray-300 mb-1 ml-2"
+          >
             Nome
           </label>
           <input
@@ -77,13 +89,16 @@ export default function ContactForms() {
             value={form.name}
             onChange={handleChange}
             required
-            className="w-sm px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           />
         </div>
 
         {/* Email */}
-        <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-1 ml-2">
+        <div className="w-full">
+          <label
+            htmlFor="email"
+            className="block text-sm font-semibold text-gray-300 mb-1 ml-2"
+          >
             Email
           </label>
           <input
@@ -93,13 +108,16 @@ export default function ContactForms() {
             value={form.email}
             onChange={handleChange}
             required
-            className="w-sm px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           />
         </div>
 
         {/* Mensagem */}
-        <div>
-          <label htmlFor="message" className="block text-sm font-semibold text-gray-300 mb-1 ml-2">
+        <div className="w-full">
+          <label
+            htmlFor="message"
+            className="block text-sm font-semibold text-gray-300 mb-1 ml-2"
+          >
             Mensagem
           </label>
           <textarea
@@ -109,18 +127,25 @@ export default function ContactForms() {
             value={form.message}
             onChange={handleChange}
             required
-            className="w-sm px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-green-500/30 focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           />
         </div>
 
         {/* Botão */}
         <div className="flex justify-center">
-          <button
+          <motion.button
             type="submit"
-            className="px-6 py-2 rounded-lg font-semibold bg-purple-600 text-white hover:bg-purple-500 shadow-md hover:shadow-purple-500/30 transition"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            disabled={loading}
+            className={`px-6 py-2 rounded-lg font-semibold shadow-md transition ${
+              loading
+                ? "bg-gray-600 cursor-not-allowed"
+                : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white"
+            }`}
           >
-            Enviar
-          </button>
+            {loading ? "Enviando..." : "Enviar"}
+          </motion.button>
         </div>
       </form>
     </motion.div>
