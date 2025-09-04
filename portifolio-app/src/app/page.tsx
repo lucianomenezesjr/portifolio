@@ -77,7 +77,7 @@ export default function Home() {
             <ProjectsSection />
           </div>
           <TechCards />
-          <div className="bg-[#1c0f27a1] w-screen py-4 flex flex-col gap-2">
+          <div id="contato" className="bg-[#1c0f27a1] w-screen py-4 flex flex-col gap-2">
             <h1 className="text-2xl font-bold text-center underline text-white">Contato</h1>
             <ContactForms />
           </div>
