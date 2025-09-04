@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import {Montserrat} from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import { Toaster } from 'sonner';
 import Footer from "@/components/Footer";
 
@@ -20,8 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" suppressHydrationWarning>
-      <body className={font.className}>
-        {children}
+      <body className={`${font.className} min-h-screen flex flex-col`}>
+        <div className="flex-grow">
+          {children}
+        </div>
         <Toaster richColors position="bottom-left" theme="dark" />
         <Footer />
       </body>

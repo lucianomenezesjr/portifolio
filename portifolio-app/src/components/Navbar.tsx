@@ -15,7 +15,7 @@ export default function Navbar({ className }: { className?: string }) {
         </Link>
 
         <MenuItem setActive={setActive} active={active} item="Projetos">
-          <div className="  text-sm grid grid-cols-2 gap-10 p-4">
+          <div className="text-sm grid grid-cols-auto gap-10 p-4">
             <ProductItem
               title="Alure App"
               href="/Projetos/Alure"

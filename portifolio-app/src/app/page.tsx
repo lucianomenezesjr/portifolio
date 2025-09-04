@@ -18,10 +18,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="relative w-full flex overflow-hidden min-h-screen">
+    <div className="relative w-full bg-black/[0.96] flex overflow-hidden min-h-screen">
+      <Spotlight />
       <Navbar className="top-2 z-50" />
       <div className="w-full rounded-md flex flex-col items-center justify-start mt-40 bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
-        <Spotlight />
 
         {/* Container principal em coluna */}
         <div className="flex flex-col items-center gap-8 relative z-10 w-full max-w-4xl">
