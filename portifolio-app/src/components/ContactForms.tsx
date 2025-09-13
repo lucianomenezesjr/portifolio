@@ -72,7 +72,7 @@ export default function ContactForms() {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-5 w-xl max-w-md flex flex-col items-center"
+        className="w-auto mx-3 flex flex-col items-center"
       >
         {/* Nome */}
         <div className="w-full">

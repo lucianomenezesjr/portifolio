@@ -11,9 +11,9 @@ export default function AlurePage() {
     return (
         <div className="text-white">
             <Navbar className="top-2 z-50" />
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center">
                 <TitleProjects titulo="Alure" />
-                <div className="flex h-screen w-full">
+                <div className="flex h-96 w-2/3 p-5">
                     <MacModel />
                 </div>
                 <div>
