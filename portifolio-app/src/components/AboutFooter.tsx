@@ -11,7 +11,7 @@ export default function AboutFooter() {
     };
 
     return(
-        <div className="flex flex-row justify-between w-full items-center px-5">
+        <div className="flex flex-row justify-between w-full items-center pr-5">
             <div className="pt-6 mr-6">
                 <CvButton/>
             </div>

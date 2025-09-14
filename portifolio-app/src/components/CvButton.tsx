@@ -14,7 +14,7 @@ export function CvButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex items-center gap-2 px-4 py-2 bg-[#2b0644] text-white rounded-lg cursor-pointer transition transform hover:bg-[#410a66] hover:scale-105">
+        <Button className="flex items-center gap-2 py-2 bg-[#2b0644] text-white rounded-lg cursor-pointer transition transform hover:bg-[#410a66] hover:scale-105">
             <Eye className="h-5 w-5" />
             Visualizar CV
         </Button>
