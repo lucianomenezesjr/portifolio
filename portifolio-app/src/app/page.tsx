@@ -9,13 +9,13 @@ import { motion } from "framer-motion";
 import ProjectsSection from "@/components/ProjectSection";
 import { TechCards } from "@/components/TechCards";
 import ContactForms from "@/components/ContactForms";
-
+import { CvButton } from "@/components/CvButton";
 
 export default function Home() {
   const typewriterWords = [
     { text: "Fullstack Developer", className: "text-white" },
-    { text: "Fullstack Developer.", className: "text-blue-400" },
-    { text: "Fullstack Developer", className: "text-purple-400" },
+    { text: "Backend Developer.", className: "text-blue-400" },
+    { text: "Frontend Developer", className: "text-purple-400" },
   ];
 
   return (
