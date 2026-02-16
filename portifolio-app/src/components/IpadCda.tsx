@@ -1,8 +1,15 @@
 "use client";
 import React from "react";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-export function IpadCda() {
+interface IpadCdaProps {
+  projectKey?: 'alure' | 'cda' | 'extraction';
+}
+
+export function IpadCda({ projectKey = 'cda' }: IpadCdaProps) {
+  const { t } = useLanguage();
+  
   return (
     <div className="flex flex-col overflow-hidden">
       <ContainerScroll
@@ -10,7 +17,7 @@ export function IpadCda() {
           <>
             <h1 className="text-4xl font-semibold text-white">
               <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
-                Controle de Acesso
+                {t(`projectPages.${projectKey}.title`)}
               </span>
             </h1>
           </>

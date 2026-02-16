@@ -1,9 +1,12 @@
 import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function TechCards() {
+  const { t } = useLanguage();
+  
   return (
     <div className="max-w-6xl mx-auto px-8">
-      <h1 className="text-2xl font-bold text-center underline text-white">Tecnologias</h1>
+      <h1 className="text-2xl font-bold text-center underline text-white">{t('techSection.title')}</h1>
       <HoverEffect items={technologies} />
     </div>
   );

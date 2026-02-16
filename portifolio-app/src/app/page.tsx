@@ -10,17 +10,22 @@ import ProjectsSection from "@/components/ProjectSection";
 import { TechCards } from "@/components/TechCards";
 import ContactForms from "@/components/ContactForms";
 import { CvButton } from "@/components/CvButton";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 export default function Home() {
+  const { t } = useLanguage();
+  
   const typewriterWords = [
-    { text: "Fullstack Developer", className: "text-white" },
-    { text: "Backend Developer.", className: "text-blue-400" },
-    { text: "Frontend Developer", className: "text-purple-400" },
+    { text: t('roles.fullstack'), className: "text-white" },
+    { text: t('roles.backend'), className: "text-blue-400" },
+    { text: t('roles.frontend'), className: "text-purple-400" },
   ];
 
   return (
     <div className="relative w-full bg-black/[0.96] flex overflow-hidden min-h-screen">
       <Spotlight />
+      <LanguageToggle />
       <Navbar className="top-2 z-50" />
       <div className="w-full rounded-md flex flex-col items-center justify-start mt-40 bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
 
@@ -39,7 +44,7 @@ export default function Home() {
               className="p-4 flex flex-col w-4xl max-w-4xl text-center md:text-left"
             >
               <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-                Luciano Jr
+                {t('name')}
               </h1>
               <div className="flex justify-center md:justify-start h-20 md:h-28 mt-4">
                 <InfiniteTypewriter words={typewriterWords} />
@@ -78,7 +83,7 @@ export default function Home() {
           </div>
           <TechCards />
           <div id="contato" className="bg-[#1c0f27a1] w-screen py-4 flex flex-col gap-2">
-            <h1 className="text-2xl font-bold text-center underline text-white">Contato</h1>
+            <h1 className="text-2xl font-bold text-center underline text-white">{t('contact')}</h1>
             <ContactForms />
           </div>
           

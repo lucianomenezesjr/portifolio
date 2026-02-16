@@ -3,6 +3,7 @@ import "./globals.css";
 import { Montserrat } from 'next/font/google';
 import { Toaster } from 'sonner';
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 export const metadata: Metadata = {
   title: "Portifolio - Luciano Jr",
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <body className={`${font.className} min-h-screen flex flex-col`}>
-        <div className="flex-grow">
-          {children}
-        </div>
-        <Toaster richColors position="top-right" theme="dark" />
-        <Footer />
+        <LanguageProvider>
+          <div className="flex-grow">
+            {children}
+          </div>
+          <Toaster richColors position="top-right" theme="dark" />
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

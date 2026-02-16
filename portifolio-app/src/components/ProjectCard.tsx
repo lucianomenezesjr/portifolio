@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ProjectCardProps {
   title: string;
@@ -21,6 +22,8 @@ export default function ProjectCard({
   technologies,
   projectId,
 }: ProjectCardProps) {
+  const { t } = useLanguage();
+  
   return (
     <Link href={`/Projetos/${projectId}`} passHref>
       <motion.div
@@ -41,7 +44,7 @@ export default function ProjectCard({
           {/* Coluna 2 */}
           <div className="flex-1">
             <div className="mb-3">
-              <h3 className="text-sm font-semibold text-gray-300">Linguagens:</h3>
+              <h3 className="text-sm font-semibold text-gray-300">{t('projectCard.languages')}:</h3>
               <div className="flex flex-wrap gap-2 mt-1">
                 {languages.map((lang, idx) => (
                   <span
@@ -55,7 +58,7 @@ export default function ProjectCard({
             </div>
 
             <div className="mb-3">
-              <h3 className="text-sm font-semibold text-gray-300">Habilidades:</h3>
+              <h3 className="text-sm font-semibold text-gray-300">{t('projectCard.skills')}:</h3>
               <div className="flex flex-wrap gap-2 mt-1">
                 {skills.map((skill, idx) => (
                   <span
@@ -69,7 +72,7 @@ export default function ProjectCard({
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-gray-300">Tecnologias:</h3>
+              <h3 className="text-sm font-semibold text-gray-300">{t('projectCard.technologies')}:</h3>
               <div className="flex flex-wrap gap-2 mt-1">
                 {technologies.map((tech, idx) => (
                   <span

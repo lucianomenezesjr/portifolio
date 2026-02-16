@@ -1,13 +1,18 @@
+"use client"
+
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa"
 import { HiOutlineMail } from "react-icons/hi"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 export default function Footer() {
+  const { t } = useLanguage();
+  
   return (
     <footer className="shadow-2xs bg-[#141313] text-gray-400 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between">
           {/* Texto */}
-          <p className="text-sm">&copy; {new Date().getFullYear()} Luciano Júnior - Todos os direitos reservados.</p>
+          <p className="text-sm">&copy; {new Date().getFullYear()} Luciano Júnior - {t('footer.rights')}.</p>
 
           {/* Ícones sociais */}
           <div className="mt-4 md:mt-0 flex space-x-6 text-xl">

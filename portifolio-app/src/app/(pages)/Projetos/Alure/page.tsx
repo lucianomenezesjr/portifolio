@@ -12,7 +12,7 @@ export default function AlurePage() {
         <div className="text-white">
             <Navbar className="top-2 z-50" />
             <div className="flex flex-col items-center">
-                <TitleProjects titulo="Alure" />
+                <TitleProjects projectKey="alure" />
                 <div className="flex h-96 w-2/3 p-5">
                     <MacModel />
                 </div>

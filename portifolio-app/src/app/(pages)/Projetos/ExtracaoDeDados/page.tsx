@@ -12,7 +12,7 @@ export default function GeminiAPI() {
             <Navbar className="top-2 z-50" />
             <div className="flex flex-col">
                 <div className="flex h-2/3 w-full justify-center">
-                    <GeminiMac />
+                    <GeminiMac projectKey="extraction" />
                 </div>
                 <div>
                     <NfExtractionLine />

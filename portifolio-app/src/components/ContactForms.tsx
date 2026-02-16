@@ -2,15 +2,18 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ContactForms() {
+  const { t } = useLanguage();
+  
   const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const [loading, setLoading] = useState(false); // <-- adicionado
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -48,13 +51,13 @@ export default function ContactForms() {
         body: JSON.stringify(payload),
       });
 
-      toast.success("Mensagem enviada com sucesso! 🚀");
+      toast.success(t('contactSection.success'));
       setForm({ name: "", email: "", message: "" });
     } catch (error) {
-      toast.error("Erro ao enviar a mensagem! 🚀");
+      toast.error(t('contactSection.error'));
       console.error(error);
     } finally {
-      setLoading(false); // encerra loading
+      setLoading(false);
     }
   };
 
@@ -67,7 +70,7 @@ export default function ContactForms() {
       className="bg-gray-900 border border-purple-500/50 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"
     >
       <h2 className="text-3xl font-bold text-purple-400 mb-6 text-center">
-        Entre em Contato
+        {t('contactSection.title')}
       </h2>
 
       <form
@@ -80,7 +83,7 @@ export default function ContactForms() {
             htmlFor="name"
             className="block text-sm font-semibold text-gray-300 mb-1 ml-2"
           >
-            Nome
+            {t('contactSection.name')}
           </label>
           <input
             type="text"
@@ -89,6 +92,7 @@ export default function ContactForms() {
             value={form.name}
             onChange={handleChange}
             required
+            placeholder={t('contactSection.placeholders.name')}
             className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           />
         </div>
@@ -99,7 +103,7 @@ export default function ContactForms() {
             htmlFor="email"
             className="block text-sm font-semibold text-gray-300 mb-1 ml-2"
           >
-            Email
+            {t('contactSection.email')}
           </label>
           <input
             type="email"
@@ -108,6 +112,7 @@ export default function ContactForms() {
             value={form.email}
             onChange={handleChange}
             required
+            placeholder={t('contactSection.placeholders.email')}
             className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           />
         </div>
@@ -118,7 +123,7 @@ export default function ContactForms() {
             htmlFor="message"
             className="block text-sm font-semibold text-gray-300 mb-1 ml-2"
           >
-            Mensagem
+            {t('contactSection.message')}
           </label>
           <textarea
             id="message"
@@ -127,6 +132,7 @@ export default function ContactForms() {
             value={form.message}
             onChange={handleChange}
             required
+            placeholder={t('contactSection.placeholders.message')}
             className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           />
         </div>
@@ -144,7 +150,7 @@ export default function ContactForms() {
                 : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white"
             }`}
           >
-            {loading ? "Enviando..." : "Enviar"}
+            {loading ? t('contactSection.sending') : t('contactSection.send')}
           </motion.button>
         </div>
       </form>

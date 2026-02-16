@@ -1,40 +1,43 @@
 "use client";
 import ProjectCard from "@/components/ProjectCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ProjectsSection() {
+  const { t } = useLanguage();
+  
   const projects = [
     {
       projectId: "CDA", 
-      title: "Sistema de Controle de Acessos",
-      objective: "Controle de acesso em ambientes escolares ou faculdades.",
-      description: "Desenvolvimento de um sistema para controle de acesso escolar/faculdade...",
+      title: t('projects.cda.title'),
+      objective: t('projects.cda.objective'),
+      description: t('projects.cda.fullDescription'),
       languages: ["C#", "JavaScript", "TypeScript", "SQL", "React.js"],
-      skills: ["Desenvolvimento Backend", "Desenvolvimento Frontend", "Autenticação JWT", "UI/UX"],
+      skills: [t('skills.backend'), t('skills.frontend'), t('skills.jwt'), "UI/UX"],
       technologies: ["ASP.NET", "Supabase (Postgres)", "Next.js"],
     },
     {
       projectId: "Alure",
-      title: "Sistema de Loja de Roupas",
-      objective: "Gerenciamento completo de uma loja de roupas com funcionalidades de e-commerce.",
-      description: "Desenvolvimento de um sistema completo com backend e frontend integrados...",
+      title: t('projects.alure.title'),
+      objective: t('projects.alure.objective'),
+      description: t('projects.alure.fullDescription'),
       languages: ["C#", "TypeScript", "React.js", "SQL"],
-      skills: ["Desenvolvimento Fullstack", "Otimização de Consultas", "UI/UX", "Documentação Técnica"],
+      skills: [t('skills.fullstack'), t('skills.optimization'), "UI/UX", t('skills.documentation')],
       technologies: ["ASP.NET", "Postgres", "Next.js", "React", "Docker"],
     },
     {
-      projectId: "ExtracaoDeDados", // ID para a rota
-      title: "API de Extração de Dados de Notas Fiscais",
-      objective: "Extração automatizada de dados de notas fiscais em PDF ou imagem.",
-      description: "API em Python (FastAPI) para extração de dados de notas fiscais...",
+      projectId: "ExtracaoDeDados",
+      title: t('projects.extraction.title'),
+      objective: t('projects.extraction.objective'),
+      description: t('projects.extraction.fullDescription'),
       languages: ["Python", "SQL"],
-      skills: ["Desenvolvimento de APIs", "Extração de Dados", "Containerização com Docker"],
+      skills: [t('skills.apis'), t('skills.dataExtraction'), t('skills.docker')],
       technologies: ["Python", "FastAPI", "Gemini API", "Postgres", "Docker"],
     },
   ];
 
   return (
     <section className="w-full max-w-6xl mx-auto px-6 py-16">
-      <h1 className="text-2xl font-semibold text-center text-white mb-6 underline">Projetos</h1>
+      <h1 className="text-2xl font-semibold text-center text-white mb-6 underline">{t('projectsSection.title')}</h1>
       <div className="grid gap-8">
         {projects.map((proj, idx) => (
           <ProjectCard
