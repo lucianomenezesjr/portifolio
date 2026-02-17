@@ -25,9 +25,14 @@ export default function Home() {
   return (
     <div className="relative w-full bg-black/[0.96] flex overflow-hidden min-h-screen">
       <Spotlight />
-      <LanguageToggle />
       <Navbar className="top-2 z-50" />
-      <div className="w-full rounded-md flex flex-col items-center justify-start mt-40 bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+      
+      {/* Botão de idioma centralizado abaixo da navbar */}
+      <div className="fixed top-20 m-5 inset-x-0 z-40 flex justify-center">
+        <LanguageToggle />
+      </div>
+      
+      <div className="w-full rounded-md flex flex-col items-center justify-start mt-48 bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
 
         {/* Container principal em coluna */}
         <div className="flex flex-col items-center gap-8 relative z-10 w-full max-w-4xl">
@@ -46,7 +51,7 @@ export default function Home() {
               <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
                 {t('name')}
               </h1>
-              <div className="flex justify-center md:justify-start h-20 md:h-28 mt-4">
+              <div className="flex justify-center md:justify-start h-20 md:h-28 mt-4 mx-2">
                 <InfiniteTypewriter words={typewriterWords} />
               </div>
             </motion.div>
