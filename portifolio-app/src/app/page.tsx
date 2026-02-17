@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="relative w-full bg-black/[0.96] flex overflow-hidden min-h-screen">
       <Spotlight />
-      <Navbar className="top-2 z-50" />
+      <Navbar className="top-2 z-50 px-3" />
       
       {/* Botão de idioma centralizado abaixo da navbar */}
       <div className="fixed top-20 m-5 inset-x-0 z-40 flex justify-center">
