@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luciano Júnior — Backend Developer / Software Engineer</title>
+  <meta name="description" content="Luciano Júnior, Backend Developer / Software Engineer com experiência em .NET/C#, Python/FastAPI, AWS e sistemas de prevenção e detecção de fraudes." />
+  <meta name="theme-color" content="#0b0d12" />
+  <!-- Metadados de compartilhamento sem imagem até existir um asset Open Graph válido. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Luciano Júnior — Backend Developer / Software Engineer" />
+  <meta property="og:description" content="Backend Developer / Software Engineer com experiência em .NET/C#, Python/FastAPI, AWS e sistemas de prevenção e detecção de fraudes." />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0d12'/%3E%3Ctext x='16' y='22' font-size='16' font-family='Arial' font-weight='700' text-anchor='middle' fill='%236ee7b7'%3Elm%3C/text%3E%3C/svg%3E" />
+
+  <!-- Aplica tema antes da pintura (evita piscar) e marca que o JS está ativo -->
+  <script>
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add("js");
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      d.setAttribute("data-theme", t);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Luciano de Jesus Menezes Júnior",
+    "alternateName": "Luciano Júnior",
+    "jobTitle": "Backend Developer / Software Engineer",
+    "description": "Backend-focused software developer with experience in financial technology, fraud prevention and detection, .NET/C#, Python/FastAPI and AWS.",
+    "worksFor": { "@type": "Organization", "name": "2RPnet" },
+    "sameAs": [
+      "https://github.com/lucianomenezesjr",
+      "https://www.linkedin.com/in/luciano-j%C3%BAnior-89b6b7211/"
+    ],
+    "address": { "@type": "PostalAddress", "addressLocality": "Sorocaba", "addressRegion": "SP", "addressCountry": "BR" },
+    "knowsAbout": ["C#", ".NET", "Python", "FastAPI", "REST APIs", "AWS", "Fraud Prevention", "Distributed Systems", "Software Engineering"]
+  }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <noscript><p class="noscript">Este portfólio precisa de JavaScript para exibir o conteúdo. · This portfolio needs JavaScript to display its content.</p></noscript>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

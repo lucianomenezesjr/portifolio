@@ -1,0 +1,64 @@
+                             LUCIANO DE JESUS MENEZES JÚNIOR
+Junior Backend Developer (.NET/C#) | Banking Fraud Prevention Systems | Pursuing AWS Developer Associate Certification
+     Sorocaba, SP, Brazil | +55 (11) 99942-2998 | luciano.menezes.jr11@gmail.com | linkedin.com/in/luciano-júnior-89b6b7211 |
+                                      github.com/lucianomenezesjr | lucianojr-portifolio.vercel.app
+
+PROFESSIONAL SUMMARY
+Junior Software Developer with hands-on backend experience (.NET/C#, Python/FastAPI) building fraud prevention and
+detection features for a high-volume banking platform at 2RPnet. AWS Academy Graduate (Cloud Developing), with a
+personal project deployed to production on AWS and actively studying for the AWS Certified Developer Associate exam.
+Dual technical background in Systems Development and Industrial Automation, with a track record of projects combining
+hardware, IoT, and software. Looking to build a career as a backend developer in the financial services sector.
+
+PROFESSIONAL EXPERIENCE
+Junior Software Developer | 2RPnet – Sorocaba, SP                                        Dec 2025 – Present
+    ● Developed and optimized fraud prevention and detection features for a high-volume banking platform, including
+        advanced SQL queries, indexing strategies, and performance tuning;
+    ● Designed and implemented schedulers and automated processes to ensure operational stability and scalability;
+    ● Built configurable workflows and business rule engines enabling flexible, scalable platform behavior;
+    ● Built an internal API Marketplace focused on modular architecture, security, and scalability;
+    ● Created business and performance dashboards using BigQuery and Looker (GCP), turning data into actionable
+        insights;
+    ● Actively participated in code reviews, technical documentation, and Agile ceremonies (Scrum).
+Software Development Intern | 2RPnet – Sorocaba, SP                                  Mar 2025 – Dec 2025
+    ● Supported backend development with C# (ASP.NET) and Python (FastAPI) on a financial security platform,
+       progressing to a full-time Junior Developer role after 9 months;
+    ● Built and maintained REST APIs, relational database integrations, and performance improvement scripts;
+    ● Contributed to automated processes and workflows in an Agile (Scrum) environment.
+
+PROJECTS
+LabControl 4.0 – Industrial Monitoring System (ASP.NET, PostgreSQL, IoT, Next.js, AWS) — 2025
+   ● Industrial monitoring platform (Industry 4.0) deployed on AWS infrastructure, with a layered architecture
+        (Edge/IoT, Supervisory, Management, Strategic); real-time machine monitoring, energy consumption tracking, and
+        occupancy visualization; JWT authentication with role-based access control.
+Automated Package Delivery Locker (Technical Capstone – Industrial Automation) (Raspberry Pi, IoT, QR Code) — 2024
+   ● Hardware + software project: automated locker with delivery-code identification, QR code generation, delivery
+        validation, and owner notification — designed, built (laser-cut enclosure), and programmed end to end.
+Season Wrapped – Bundesliga x AWS Hackathon (React Native, Java, PostgreSQL/AWS RDS) — 2025
+   ● Mobile app displaying personalized season statistics, with a Java backend and a PostgreSQL database hosted on
+        Amazon RDS, deployed on AWS infrastructure.
+BCTI – Intelligent Technical Knowledge Base (.NET, Next.js, PostgreSQL, AI) — 2025
+   ● Web system with an AI-powered chat that answers questions based on registered articles and cites its sources —
+        delivered as a functional MVP in 3 weeks.
+
+EDUCATION
+    ● Associate Degree in Systems Analysis and Development (in progress, 4th semester) — Universidade SENAI | Jan
+        2025 – Dec 2026
+    ● Technical Diploma in Systems Development (SENAI SP) and Technical Diploma in Industrial Automation (IFSP –
+        Salto Campus) — dual technical background completed during high school | 2023–2024
+
+TECHNICAL SKILLS
+Languages: C#, Python, Java, JavaScript, TypeScript
+Backend: ASP.NET Core, FastAPI
+Frontend: Next.js, React, React Native
+Databases: PostgreSQL
+Cloud: AWS (AWS Academy Graduate – Cloud Developing; RDS; pursuing Developer Associate certification) · GCP
+(professional use: BigQuery, Looker; personal skill badges: networking, load balancing, ML, dev environment setup)
+Tools: Docker, Git/GitHub, Scrum
+
+CERTIFICATIONS & LANGUAGES
+    ● AWS Academy Graduate – Cloud Developing (2026) · Google Cloud Computing Foundations Certificate (2025) ·
+      Oracle Java Foundations Certified Junior Associate (2024) · Atlassian Agile Project Management · IBM Data Science
+      Foundations · Google Cloud Skill Badges: Networking, Load Balancing, BigQuery ML, Dev Environment Setup (2025)
+    ● Languages: Portuguese (Native) · English (Advanced)
+
