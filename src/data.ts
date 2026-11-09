@@ -6,7 +6,7 @@ export interface Project {
   id: string; title: string; year?: string; kinds: string[]; hue: number; glyph: string;
   category: "featured" | "other"; priority?: number; problem: Localized; solution: Localized; status: Localized; architecture?: Localized;
   challenges?: Localized[]; cover?: string; badge: Localized; summary: Localized; details: Record<Lang, string[]>;
-  stack: string[]; images: ProjectImage[]; repo?: string; demo?: string;
+  stack: string[]; images: ProjectImage[]; coverImage?: ProjectImage; repo?: string; demo?: string;
 }
 export interface PortfolioData {
   config: { siteUrl: string; email: string; github: string; linkedin: string; whatsapp: string; cv: string; cvEn: string; formEndpoint: string };

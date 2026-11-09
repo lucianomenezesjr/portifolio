@@ -57,6 +57,7 @@ function Header({ lang, setLang }: { lang: Lang; setLang: (lang: Lang) => void }
 function Layers({ lang }: { lang: Lang }) { return <div className="layers" role="img" aria-label={ui("layersAlt", lang)}>{D.layers.map((layer, i) => <div className="layer" style={{ "--i": i } as CSSProperties} key={i}><b>0{i + 1}</b>{t(layer, lang)}</div>).reverse()}</div>; }
 function Cover({ project, lang }: { project: Project; lang: Lang }) {
   if (project.cover === "layers") return <Layers lang={lang} />;
+  if (project.coverImage) return <img src={project.coverImage.src} alt={t(project.coverImage.alt, lang)} loading="lazy" onError={e => e.currentTarget.style.display = "none"} />;
   if (project.images.length) return <img src={project.images[0].src} alt="" loading="lazy" onError={e => e.currentTarget.style.display = "none"} />;
   return <div className="art" style={{ "--h": project.hue } as CSSProperties} aria-hidden="true"><span>{project.glyph}</span></div>;
 }

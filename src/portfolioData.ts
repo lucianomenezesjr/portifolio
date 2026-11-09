@@ -229,6 +229,7 @@ const PORTFOLIO = {
         ]
       },
       stack: ["Python", "FastAPI", "React", "TypeScript", "SQLite", "Codex app-server", "MCP"],
+      coverImage: { src: "assets/gepeto/gepeto-hero.png", alt: { pt: "Arte de apresentação do Gepeto com a interface do assistente em destaque", en: "Gepeto presentation artwork with the assistant interface in focus" } },
       images: [
         { src: "assets/gepeto/home-desktop.png", alt: { pt: "Tela inicial de chat do Gepeto com sidebar, composer e painel System", en: "Gepeto chat home with sidebar, composer and System panel" } },
         { src: "assets/gepeto/overview-desktop.png", alt: { pt: "Overview do Gepeto com status do engine e cards de contexto", en: "Gepeto overview with engine status and context cards" } },

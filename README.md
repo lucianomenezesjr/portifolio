@@ -18,4 +18,4 @@ npm run build
 npm run preview
 ```
 
-Os componentes ficam em `src/App.tsx`, os tipos e dados em `src/data.ts` e `src/portfolioData.ts`, e os estilos continuam em `style.css`. Para baixar as imagens referenciadas pelos projetos, execute `node download-assets.mjs`.
+Os componentes ficam em `src/App.tsx`, os tipos e dados em `src/data.ts` e `src/portfolioData.ts`, e os estilos continuam em `style.css`.
