@@ -1,7 +1,11 @@
-# Post para LinkedIn — PT
+# Publicação para LinkedIn — PT-BR
 
-Estou desenvolvendo o Gepeto, um workspace pessoal de agentes com interface própria.
+Estou trabalhando no FieldOps, uma plataforma para gestão de inspeções técnicas em campo.
 
-O projeto nasceu sobre o ecossistema OpenJarvis, mas a arquitetura separa claramente a camada de produto do runtime de inteligência. A interface em React/TypeScript concentra chat, overview, histórico, conectores, settings e observabilidade. O backend FastAPI mantém conversas e threads, transmite eventos por WebSocket e persiste traces redacted em SQLite. O Codex app-server entra como runtime principal; MCP, approvals e uma opção local de inferência completam a fronteira de ferramentas e privacidade.
+O projeto reúne uma API REST em Java/Spring Boot, um painel administrativo em Angular e um aplicativo mobile em Expo/React Native. O fluxo cobre criação de modelos versionados de checklist, planejamento e atribuição, execução pelo técnico, registro de evidências e não conformidades, revisão e auditoria.
 
-Na auditoria mais recente, o build frontend e os testes selecionados passaram, e capturei as telas reais da aplicação em execução local. O fluxo autenticado completo ainda não foi validado, então o projeto segue tratado como alpha. Os próximos passos são fechar OAuth/client registration, validar o transporte MCP nativo e executar o smoke test end-to-end.
+Um dos desafios mais interessantes foi tratar conectividade instável como parte do domínio: o mobile mantém cache e uma outbox local, preserva a ordem das operações e sincroniza quando a rede retorna. No backend, snapshots de checklist protegem o histórico mesmo quando o modelo evolui.
+
+Durante a auditoria, a API passou por 46 testes com PostgreSQL 16 via Testcontainers, o painel passou por 39 testes unitários e build, e o mobile passou pelo typecheck. A próxima etapa é validar o app em dispositivo real e fechar os requisitos operacionais de produção.
+
+#Java #SpringBoot #Angular #ReactNative #Expo #PostgreSQL #SoftwareEngineering #FieldOperations

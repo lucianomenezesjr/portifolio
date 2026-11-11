@@ -58,6 +58,9 @@ const PORTFOLIO = {
       formOk: "Mensagem enviada. Obrigado! Respondo em breve.",
       formErr: "Não consegui enviar agora. Tente pelo e-mail ao lado.",
       formMailto: "Abrindo seu aplicativo de e-mail...",
+      copyLabel: "Copiar contato",
+      copySuccess: "Contato copiado para a área de transferência.",
+      copyError: "Não foi possível copiar. Tente novamente.",
       formSubject: "Contato pelo portfólio",
       direct: "Ou fale direto",
       footer: "Feito com React, TypeScript e Vite"
@@ -99,6 +102,9 @@ const PORTFOLIO = {
       formOk: "Message sent. Thank you! I’ll reply soon.",
       formErr: "I couldn’t send it right now. Please use the email on the side.",
       formMailto: "Opening your email app...",
+      copyLabel: "Copy contact",
+      copySuccess: "Contact copied to the clipboard.",
+      copyError: "Could not copy the contact. Please try again.",
       formSubject: "Portfolio contact",
       direct: "Or reach out directly",
       footer: "Built with React, TypeScript and Vite"
@@ -230,6 +236,9 @@ const PORTFOLIO = {
       },
       stack: ["Python", "FastAPI", "React", "TypeScript", "SQLite", "Codex app-server", "MCP"],
       coverImage: { src: "assets/gepeto/gepeto-hero.png", alt: { pt: "Arte de apresentação do Gepeto com a interface do assistente em destaque", en: "Gepeto presentation artwork with the assistant interface in focus" } },
+      coverImages: {
+        pt: { src: "assets/gepeto/gepeto-cover-pt.png", alt: "Arte de apresentação do Gepeto em português com a interface do assistente em destaque" }
+      },
       images: [
         { src: "assets/gepeto/home-desktop.png", alt: { pt: "Tela inicial de chat do Gepeto com sidebar, composer e painel System", en: "Gepeto chat home with sidebar, composer and System panel" } },
         { src: "assets/gepeto/overview-desktop.png", alt: { pt: "Overview do Gepeto com status do engine e cards de contexto", en: "Gepeto overview with engine status and context cards" } },
@@ -240,36 +249,51 @@ const PORTFOLIO = {
     {
       id: "fieldops", title: "FieldOps", category: "featured", priority: 2,
       kinds: ["api", "web"], hue: 215, glyph: "FO",
-      problem: { pt: "Substituir formulários, planilhas, fotografias isoladas e mensagens por um fluxo rastreável de inspeções técnicas em campo.", en: "Replacing forms, spreadsheets, isolated photos and messages with a traceable workflow for technical field inspections." },
-      solution: { pt: "Plataforma que integra API REST, painel administrativo e aplicativo mobile para planejar, executar e revisar inspeções.", en: "Platform integrating a REST API, administrative dashboard and mobile application to plan, perform and review inspections." },
-      architecture: { pt: "API Spring Boot como núcleo de autenticação, autorização, regras, persistência e auditoria; painel Angular e aplicativo Expo/React Native como interfaces consumidoras.", en: "Spring Boot API as the core for authentication, authorization, business rules, persistence and auditing; Angular dashboard and Expo/React Native app as client interfaces." },
-      status: { pt: "Em desenvolvimento.", en: "In development." },
+      problem: { pt: "Inspeções feitas por planilhas, mensagens e fotografias dispersas dificultam o planejamento, a rastreabilidade e a revisão.", en: "Inspections handled through spreadsheets, messages and scattered photos make planning, traceability and review harder." },
+      solution: { pt: "Plataforma que conecta administração, execução em campo e revisão por meio de uma API central, com checklists versionados, evidências e sincronização local.", en: "Platform connecting administration, on-site execution and review through a central API, versioned checklists, evidence and local synchronization." },
+      architecture: { pt: "API Java/Spring Boot com PostgreSQL; painel Angular e aplicativo Expo/React Native comunicam-se por API REST. O backend concentra autenticação, autorização, regras, persistência e auditoria.", en: "Java/Spring Boot API with PostgreSQL; the Angular dashboard and Expo/React Native app communicate through a REST API. The backend centralizes authentication, authorization, business rules, persistence and auditing." },
+      challenges: [
+        { pt: "Snapshots preservam a versão do checklist usada em cada inspeção.", en: "Snapshots preserve the checklist version used by each inspection." },
+        { pt: "Cache e fila local mantêm operações pendentes em conectividade instável.", en: "Local cache and an operation queue keep pending work during unstable connectivity." },
+        { pt: "Papéis e eventos de auditoria protegem o fluxo e a rastreabilidade.", en: "Roles and audit events protect the workflow and traceability." }
+      ],
+      status: { pt: "Em desenvolvimento; o núcleo possui testes automatizados relevantes, mas o mobile ainda não foi validado visualmente em dispositivo real.", en: "In development; the core has relevant automated tests, but the mobile app has not yet been visually validated on a real device." },
       badge: { pt: "Em desenvolvimento", en: "In development" },
-      summary: { pt: "Plataforma para planejar, executar e revisar inspeções técnicas com API, painel administrativo e app mobile.", en: "Platform for planning and reviewing field inspections through an API, admin dashboard and mobile app." },
+      summary: { pt: "Plataforma de inspeções técnicas que integra planejamento, execução em campo e revisão, com API, painel web e aplicativo mobile.", en: "Field inspection platform connecting planning, on-site execution and review through an API, web dashboard and mobile app." },
       details: {
         pt: [
-          "API REST.",
-          "Autenticação e autorização.",
-          "Gestão de usuários e entidades.",
-          "Modelos de checklist e planejamento de inspeções.",
-          "Registro de evidências e não conformidades.",
-          "Revisão e auditoria.",
-          "Painel administrativo e telas mobile existentes."
+          "Gestão de usuários e permissões por papel.",
+          "Clientes, locais e equipamentos, com identificação por QR Code.",
+          "Planejamento e atribuição de inspeções.",
+          "Modelos versionados de checklist e snapshots históricos.",
+          "Respostas, evidências fotográficas e não conformidades.",
+          "Revisão, aprovação, correção e trilha de auditoria.",
+          "Cache e fila local para sincronização offline."
         ],
         en: [
-          "REST API.",
-          "Authentication and authorization.",
-          "User and entity management.",
-          "Checklist templates and inspection planning.",
-          "Evidence and non-conformity records.",
-          "Review and auditing.",
-          "Administrative dashboard and existing mobile screens."
+          "User management and role-based permissions.",
+          "Clients, sites and equipment, with QR Code identification.",
+          "Inspection planning and assignment.",
+          "Versioned checklist templates and historical snapshots.",
+          "Answers, photographic evidence and non-conformities.",
+          "Review, approval, correction and audit trail.",
+          "Local cache and queue for offline synchronization."
         ]
       },
-      stack: ["Java 21", "Spring Boot", "PostgreSQL", "Angular", "TypeScript", "Expo", "React Native"],
+      stack: ["Java 21", "Spring Boot", "PostgreSQL", "Angular 22", "TypeScript", "React Native", "Expo", "Docker Compose", "Playwright"],
+      stackGroups: [
+        { title: { pt: "Backend", en: "Backend" }, items: ["Java 21", "Spring Boot", "Spring Security", "Spring Data JPA", "PostgreSQL", "Flyway"] },
+        { title: { pt: "Web", en: "Web" }, items: ["Angular 22", "TypeScript"] },
+        { title: { pt: "Mobile", en: "Mobile" }, items: ["React Native", "Expo"] },
+        { title: { pt: "Infraestrutura e testes", en: "Infrastructure & testing" }, items: ["Docker Compose", "Playwright", "axe"] }
+      ],
+      coverImage: { src: "assets/fieldops/fieldops-cover.png", alt: { pt: "Arte de apresentação do FieldOps com o dashboard de gestão de inspeções em destaque", en: "FieldOps presentation artwork featuring the inspection management dashboard" } },
+      coverImages: { en: { src: "assets/fieldops/fieldops-cover-en.png", alt: "FieldOps English presentation artwork featuring the inspection management dashboard" } },
       images: [
-        { src: "assets/fieldops/dashboard-desktop.webp", alt: { pt: "Dashboard administrativo do FieldOps em desktop", en: "FieldOps administrative dashboard on desktop" } },
-        { src: "assets/fieldops/dashboard-mobile.webp", alt: { pt: "Dashboard administrativo do FieldOps em mobile", en: "FieldOps administrative dashboard on mobile" } }
+        { src: "assets/fieldops/dashboard-desktop.png", alt: { pt: "Dashboard do painel administrativo do FieldOps com indicadores de inspeções", en: "FieldOps administrative dashboard with inspection status indicators" } },
+        { src: "assets/fieldops/inspections-list-desktop.png", alt: { pt: "Lista de inspeções do painel administrativo do FieldOps", en: "FieldOps administrative inspection list" } },
+        { src: "assets/fieldops/inspection-detail-desktop.png", alt: { pt: "Detalhes de uma inspeção no painel administrativo do FieldOps", en: "FieldOps administrative inspection details" } },
+        { src: "assets/fieldops/inspection-review-desktop.png", alt: { pt: "Tela de revisão de inspeção no painel administrativo do FieldOps", en: "FieldOps administrative inspection review screen" } }
       ], repo: "", demo: ""
     },
     {
@@ -328,6 +352,8 @@ const PORTFOLIO = {
         ]
       },
       stack: ["C#", "ASP.NET", "PostgreSQL", "Next.js", "React", "TypeScript", "Docker"],
+      coverImage: { src: "assets/alure/alure-cover.png", alt: { pt: "Arte de apresentação do Alure E-commerce com a vitrine da loja em destaque", en: "Alure E-commerce presentation artwork featuring the storefront" } },
+      coverImages: { en: { src: "assets/alure/alure-cover-en.png", alt: "Alure E-commerce English presentation artwork featuring the storefront" } },
       images: [
         { src: "assets/alure/alure_home.webp", alt: { pt: "Página inicial da loja Alure", en: "Alure store home page" } },
         { src: "assets/alure/alure_produtos.webp", alt: { pt: "Listagem de produtos com filtros", en: "Product listing with filters" } },
@@ -400,6 +426,8 @@ const PORTFOLIO = {
         ]
       },
       stack: ["Python", "FastAPI", "Gemini API", "PostgreSQL", "Docker"],
+      coverImage: { src: "assets/api/invoice-api-cover.png", alt: { pt: "Arte de apresentação da API de Extração de Notas Fiscais com a documentação FastAPI em destaque", en: "Invoice Extraction API presentation artwork featuring the FastAPI documentation" } },
+      coverImages: { en: { src: "assets/api/invoice-api-cover-en.png", alt: "Invoice Extraction API English presentation artwork featuring the FastAPI documentation" } },
       images: [
         { src: "assets/api/methodPostv2.webp", alt: { pt: "Visão geral da API de extração", en: "Extraction API overview" } },
         { src: "assets/api/methodPost.webp", alt: { pt: "Endpoint POST de upload de nota fiscal", en: "Invoice upload POST endpoint" } },

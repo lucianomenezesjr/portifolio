@@ -1,42 +1,46 @@
-# Auditoria do Gepeto Project
+# Auditoria do FieldOps
 
-Auditoria técnica, funcional e visual realizada em 2026-11-08 sobre o estado presente de `/home/lucianojr/Documents/gepeto-project/OpenJarvis`.
+Auditoria técnica e editorial realizada sobre os repositórios locais:
 
-## Escopo e método
+- `API/`: Java 21, Spring Boot e PostgreSQL.
+- `interface-administrativa/`: Angular e TypeScript.
+- `mobile/`: Expo/React Native e TypeScript.
 
-- Leitura da estrutura, README, `pyproject.toml`, `package.json`, configuração, especificação, backlog, módulos de runtime, API, frontend, desktop e testes.
-- Cruzamento entre documentação e implementação; backlog não foi tratado como prova de funcionalidade.
-- Execução segura em diretório temporário: backend Codex em `127.0.0.1:18081`, frontend Vite em `127.0.0.1:5175`, sem credenciais e sem OAuth.
-- Playwright/Chromium local foi usado apenas contra os servidores locais para gerar as capturas em `screenshots/`.
-- Validação: 32 testes Python selecionados passaram; 124 testes frontend passaram; `npm run build` passou.
+## Como ler
 
-## Legenda de evidência
+Esta auditoria separa evidência em quatro níveis:
 
-- **Código**: há implementação local identificável.
-- **Teste**: há teste automatizado executado nesta auditoria.
-- **Execução**: a aplicação/endpoints carregaram ou responderam nesta auditoria.
-- **Documentado**: descrito em especificação/backlog, mas não necessariamente exercitado.
-- **Planejado/review**: ainda há pendência explícita no backlog ou release gate.
+- **Confirmado pelo código**: localizado em código, configuração, migration ou teste.
+- **Confirmado por execução**: observado ao executar build, typecheck, testes ou Playwright.
+- **Documentado, não validado**: descrito em Docs, mas não comprovado nesta execução.
+- **Inferido**: interpretação técnica explicitamente marcada como tal.
 
-## Principais conclusões
-
-Gepeto é a camada de produto e interface de um workspace pessoal de agentes; OpenJarvis é o pacote/runtime legado que fornece grande parte das primitivas. O caminho de produto prioriza Codex app-server local via stdio, com conversas persistentes, eventos, approvals, MCP e observabilidade sob controle do Gepeto. A execução local mostrou a casca e as rotas funcionando sem credenciais, mas não validou uma conversa real: o estado Codex ficou `unauthenticated`, o app-server não foi iniciado e não há modelo local necessário/selecionado nesse modo.
-
-O repositório é um alpha amplo e tecnicamente organizado, com boa base de contratos e testes, mas o próprio release gate permanece `no-go` para distribuição externa por pendências em OAuth/client ID, transporte MCP nativo do Codex e smoke test autenticado.
+Não foram alterados código-fonte, configuração, dependências ou histórico Git dos repositórios auditados. As screenshots copiadas para `screenshots/` são artefatos E2E já existentes no painel administrativo, com dados demonstrativos.
 
 ## Entregáveis
 
 - [Resumo executivo](resumo-executivo.md)
 - [Arquitetura](arquitetura.md)
-- [Funcionalidades](funcionalidades.md)
 - [Tecnologias](tecnologias.md)
+- [Funcionalidades](funcionalidades.md)
+- [Modelo de dados](modelo-de-dados.md)
+- [Fluxos de negócio](fluxos-de-negocio.md)
 - [Desafios técnicos](desafios-tecnicos.md)
 - [Avaliação técnica](avaliacao-tecnica.md)
-- [Conteúdo de portfólio — PT](conteudo-portfolio-pt.md)
-- [Portfolio content — EN](conteudo-portfolio-en.md)
-- [Post LinkedIn — PT](post-linkedin-pt.md)
+- [Conteúdo PT](conteudo-portfolio-pt.md)
+- [Content EN](conteudo-portfolio-en.md)
+- [Post para LinkedIn](post-linkedin-pt.md)
 - [Inventário de imagens](inventario-imagens.md)
 
-## Nota sobre o estado do repositório
+## Validação executada
 
-A auditoria encontrou uma árvore de trabalho já modificada, principalmente na branch `feat/gepeto-warm-tech-shell`, com mudanças pré-existentes em documentação, frontend, runtime e testes. Nenhuma alteração de código, configuração de produção, migration ou commit foi realizado para esta auditoria. O build frontend gerou apenas artefatos estáticos derivados no diretório configurado pelo Vite.
+| Área | Comando | Resultado |
+|---|---|---|
+| API | `JAVA_HOME=/usr/lib/jvm/temurin-21-jdk mvn test` | 46/46 testes, sucesso |
+| Admin | `npm test -- --watch=false` | 39/39 testes, sucesso |
+| Admin | `npm run build` | sucesso; 1 warning Angular NG8011 |
+| Mobile | `npm run typecheck` | sucesso |
+| E2E Playwright | snapshots existentes em `interface-administrativa/e2e/...` | usados como evidência visual pré-existente; suíte real não foi repetida sem configurar seed/API |
+| Mobile visual | emulador/ADB | indisponível no ambiente; sem screenshot mobile nova |
+
+O primeiro `mvn test` com Java 25 produziu 6 erros de Mockito/Byte Buddy; a repetição com Java 21, versão declarada no `pom.xml`, passou integralmente. O detalhe está em [avaliação técnica](avaliacao-tecnica.md).

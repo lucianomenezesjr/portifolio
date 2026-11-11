@@ -1,32 +1,29 @@
-# Funcionalidades e estado
+# Matriz de funcionalidades
 
-| Funcionalidade | Evidência | Estado nesta auditoria | Limitação |
+| Funcionalidade | Classificação | Evidências | Limitação/observação |
 |---|---|---|---|
-| Chat e shell Warm Tech | `frontend/src/App.tsx`, `pages/ChatPage.tsx`, componentes `Chat/` | Implementada e validada visualmente | Sem conversa real Codex autenticada |
-| Conversas locais | `frontend/src/lib/store.ts`, `codex_conversations.py` | Implementada; testes passam | UI local e store Codex têm fronteiras distintas |
-| Threads/turns Codex | `runtime/codex_app_server.py`, `codex_conversations.py` | Implementada e testada com fake runtime | Não exercitada contra app-server autenticado |
-| Streaming/eventos | `server/codex_event_routes.py`, `frontend/src/lib/codex-events.ts` | Implementada; testes de reducer passam | Smoke visual autenticado pendente |
-| Interrupção/cancelamento | `turn/interrupt`, `POST .../cancel` | Implementada em código/testes | Cancelamento remoto completo é pendência GEP-002.5 |
-| Aprovações | WebSocket `approval_decision`, `ApprovalBell`, `ToolCallCard`, `codex_mcp_bridge.py` | Parcialmente implementada/testada | End-to-end com Codex real não validado |
-| Autenticação ChatGPT | `chatgpt_auth.py`, `codex_auth_routes.py`, Settings | Implementada em partes; testes passam | Client ID/registro e integração real ainda em review |
-| Diagnóstico/runtime identity | `codex_diagnostics_routes.py`, Settings | Implementada e validada por endpoint | Modelo exato pode ser indisponível |
-| MCP | `codex_mcp_bridge.py`, providers/config | Parcialmente implementada | Transporte MCP nativo do Codex é pendência explícita |
-| Conectores | `connectors_router.py`, `connectors/`, `DataSourcesPage.tsx` | Catálogo e rotas implementados; endpoint list validado | OAuth/contas reais não foram usados |
-| Fontes conectadas | Tela Data Sources; Hacker News apareceu conectado no ambiente temporário | Visualmente validada | Estado depende de ambiente/configuração; não foi sincronizado |
-| Histórico | Sidebar/store/localStorage | Implementada | Nenhuma conversa demonstrativa segura foi criada |
-| Settings | `SettingsPage.tsx` | Implementada e capturada | Mostra Codex desconectado no teste |
-| Observabilidade | `traces/`, `GepetoTraceStore`, diagnostics, Logs | Implementada em código/testes; tela carregou | Instrumentação completa de tools/approvals ainda pendente |
-| Agentes gerenciados | `AgentsPage.tsx`, `agent_manager_routes.py` | Implementada no monorepo | Não é o mesmo que conversa Codex validada |
-| Desktop | `frontend/src-tauri`, `desktop/src-tauri` | Código/configuração presente | Build nativo não foi executado nesta auditoria |
-| Mobile responsivo | captura 390×844 | Parcial: carrega, mas sidebar domina a viewport | Não há evidência de UX mobile final |
-| Deploy | Docker, systemd, Windows, Tauri | Planejado/implementado como infraestrutura | Release gate externo permanece no-go |
+| Login, refresh, logout | Implementada e validada | `AuthController.java`; `AuthenticationTest.java`; admin `auth.service.spec.ts` | E2E real não repetido nesta auditoria |
+| Recuperação/troca de senha | Implementada e validada | `AuthService.java`; `AuthenticationTest.java`; telas auth admin | e-mail real depende de SES/configuração |
+| Usuários e papéis | Implementada e validada | `UserController.java`, `Role.java`, `users/` | três papéis; sem portal cliente confirmado |
+| Guards/rotas admin | Implementada e validada | `app.routes.ts:22-80`; guards; 39 testes unitários | validação visual via snapshots existentes |
+| Dashboard | Implementada e validada | `DashboardController.java`; dashboard service; E2E snapshot | indicadores são contagens de inspeção/NC, não relatório avançado |
+| Clientes | Implementada e validada | `ClientController.java`, `clients/` | CRUD/status; sem evidência de multi-tenant completo |
+| Locais | Implementada e validada | `SiteController.java`, `sites/` | CRUD/status por cliente |
+| Equipamentos/QR | Implementada, mas não validada em device | `EquipmentController.java`; `app/scanner.tsx` | QR usa API; câmera não foi executada |
+| Modelos de inspeção | Implementada e validada | `TemplateController.java`; `TemplateVersioningTest.java`; builder admin | sem drag-and-drop confirmado |
+| Planejamento/atribuição | Implementada e validada | `InspectionService.java:67-132,267-282`; `inspection-new` specs | um técnico e um supervisor por inspeção |
+| Checklist/respostas | Implementada e validada | `InspectionResponseController.java`; `InspectionWorkflowTest.java`; mobile checklist | validação de UI mobile não executada |
+| Evidências fotográficas | Implementada e validada no backend | `EvidenceController.java`; 7 testes com Java 21; `app/camera.tsx` | tipo confirmado é foto; S3 não foi executado contra AWS |
+| Não conformidades | Implementada, mas não validada ponta a ponta | `NonConformityController.java`; admin service | fluxo de tratamento é simples; não há plano de ação confirmado |
+| Revisão/aprovação/reprovação | Implementada e validada | `ReviewController.java`; inspection review specs; snapshot | aprovação é supervisor; screenshot mostra formulário de reprovação |
+| Histórico/auditoria | Implementada e validada | `AuditEventController.java`; `audit_event`; audit test | retenção/expurgo não encontrado |
+| Relatórios/PDF | Não confirmada | nenhum controller/serviço de relatório encontrado | Docs pode mencionar evolução; não apresentar como implementado |
+| Mobile autenticado | Implementada, não validada por device | `mobile/src/auth/`; `app/_layout.tsx` | typecheck passou; sem emulador |
+| Cache offline | Implementada, não validada por device | `mobile/src/offline/cache.ts` | AsyncStorage, sem teste de reinstalação/limite |
+| Outbox e sync | Implementada e validada no backend; mobile não validado por device | V4; `SyncServiceTest`/`SyncIntegrationTest`; `SyncContext.tsx` | conflitos complexos e retomada real não observados |
+| CI/CD | Parcial/documentada | workflows/configuração e Docs | execução de pipeline remoto não realizada |
+| AWS | Parcial/configurável | SDK S3/SES e Docs | nenhuma evidência de deploy/conta/endpoint operacional |
 
-## Classificação resumida
+## Endpoints representativos
 
-**Implementada e validada:** contratos Codex com fake runtime, persistência e traces selecionados, rotas e diagnostics, frontend build/tests, navegação e telas principais.
-
-**Implementada, mas não testada nesta auditoria:** OAuth real, app-server real, connectors OAuth, desktop nativo, tools destrutivas com approval real.
-
-**Parcial/review:** streaming visual integrado ao chat autenticado, MCP via transporte nativo do Codex, retenção/replay longo de eventos, cancelamento remoto completo, release gate.
-
-**Planejada ou não confirmada:** produção, distribuição externa, disponibilidade de modelos/conta ChatGPT e qualquer conectividade pessoal do usuário.
+Os contratos estão nos controllers API e nos serviços Angular/mobile. Os principais grupos são auth, cadastros, templates, inspeções, respostas, evidências, revisão, auditoria e sync; a lista consolidada está em [arquitetura](arquitetura.md).

@@ -237,6 +237,9 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .tags .tag--core, .tag--core {
   background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 500;
 }
+.stack-groups { display: grid; gap: 12px; }
+.stack-group { display: grid; gap: 7px; }
+.stack-group h5 { color: var(--muted); font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
 
 /* Filtros */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
@@ -341,6 +344,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .form__status.err { color: var(--danger); }
 .direct { display: grid; gap: 12px; align-content: start; }
 .direct .mini-label { margin: 0 0 2px; }
+.direct__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: stretch; }
 .direct__link {
   display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 18px;
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; font-weight: 600;
@@ -348,6 +352,10 @@ main, .nav, .footer { position: relative; z-index: 1; }
 }
 .direct__link:hover { border-color: var(--accent); transform: translateX(4px); }
 .direct__link small { font-family: var(--mono); font-weight: 400; font-size: 0.78rem; color: var(--muted); overflow-wrap: anywhere; text-align: right; }
+.copy-btn { width: 48px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); color: var(--muted); cursor: pointer; display: grid; place-items: center; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+.copy-btn:hover, .copy-btn:focus-visible { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.copy-toast { position: fixed; z-index: 20; right: 24px; bottom: 24px; max-width: min(360px, calc(100% - 48px)); padding: 13px 16px; border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border)); border-radius: 12px; background: var(--bg-elev); color: var(--text); box-shadow: 0 16px 40px rgba(0,0,0,0.24); font-size: 0.88rem; animation: pop 0.2s ease; }
+.copy-toast--error { border-color: var(--danger); }
 
 .footer { text-align: center; padding: 32px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
 

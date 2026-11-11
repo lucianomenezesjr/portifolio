@@ -2,21 +2,30 @@
 
 ## O que é
 
-Gepeto Project é um workspace pessoal de agentes com interface própria, construído sobre o ecossistema OpenJarvis. A proposta é separar a experiência e os dados do produto do loop de agente: Gepeto controla UI, conversas locais, escopo de projeto, MCP, approvals e observabilidade; Codex app-server executa o ciclo de agente, modelo e ferramentas.
+O FieldOps é uma plataforma de gestão de inspeções técnicas em campo. O sistema combina uma API REST com persistência PostgreSQL, um painel administrativo Angular para planejar e revisar inspeções e um aplicativo Expo/React Native dedicado ao técnico de campo.
 
-## O que foi confirmado
+## Problema e proposta de valor
 
-- Frontend React/TypeScript/Vite com shell Warm Tech e rotas para chat, overview, dashboard, fontes, agentes, logs, settings e onboarding (`frontend/src/App.tsx:1-180`).
-- Backend FastAPI com rotas gerais, conectores, autenticação Codex, conversas Codex, WebSocket de eventos e diagnostics (`src/openjarvis/server/app.py:531-543`).
-- Adaptador Codex stdio com handshake JSONL/JSON-RPC, threads, turns, interrupção, eventos e lifecycle (`src/openjarvis/runtime/codex_app_server.py`).
-- Persistência SQLite para associação conversa/thread e traces Gepeto (`src/openjarvis/server/app.py:53-74`).
-- MCP bridge com política, escopo e approvals para tools de escrita (`src/openjarvis/runtime/codex_mcp_bridge.py`).
-- Testes automatizados selecionados e build frontend passaram.
+O produto organiza um processo que normalmente fica disperso entre planilhas, formulários, mensagens e fotografias. Ele relaciona cliente, local, equipamento, modelo versionado de checklist, técnico e supervisor; preserva as respostas e evidências; e cria uma trilha de auditoria.
 
-## O que não foi confirmado como fluxo completo
+O valor principal está na continuidade do fluxo: o supervisor planeja, o técnico executa mesmo com conectividade instável, e a revisão recebe um registro estruturado em vez de um relato manual.
 
-Não houve login, conversa real, streaming Codex autenticado, aprovação end-to-end ou integração MCP com app-server real. O backend iniciou em modo Codex sem credenciais: `/v1/codex/auth/status` retornou `unauthenticated`; diagnostics reportou `runtime_started=false`, `runtime_running=false` e `model=null`. O release gate documenta a decisão `no-go` (`docs/gepeto/release-gate.md`).
+## Usuários observados
 
-## Leitura para portfólio
+Os papéis confirmados no código são `ADMIN`, `SUPERVISOR` e `TECHNICIAN` (`API/src/main/java/com/fieldops/user/domain/Role.java:3-7`). O painel atende principalmente administração/supervisão; o mobile rejeita usuários que não sejam técnicos (`mobile/src/auth/AuthContext.tsx:27-33,95-105`). Não foi encontrado um portal de cliente implementado.
 
-Apresente Gepeto como um produto/workspace de agentes em desenvolvimento avançado, com uma camada visual própria e uma fronteira de runtime bem definida. Evite dizer que está em produção ou que o chat Codex foi validado com conta real. A melhor narrativa é: “interface e camada de produto sobre um runtime de agentes, com persistência, conectores, MCP, approvals e observabilidade em implementação/teste”.
+## Estado atual
+
+**Confirmado pelo código e execução:** API, painel e mobile possuem implementação significativa; as migrations são aplicadas em PostgreSQL 16 de teste; 46 testes da API, 39 testes unitários do admin e o typecheck do mobile passaram no ambiente suportado.
+
+**Limites da auditoria:** não foi iniciado um ambiente persistente completo com seed para repetir os E2E reais, e não havia emulador Android/iOS ou ADB disponível para executar o mobile visualmente. Portanto, a existência do mobile é confirmada estaticamente e pelo typecheck, mas seu fluxo visual/device não foi validado nesta auditoria.
+
+Não há evidência suficiente para afirmar produção, usuários reais, deploy AWS ou operação comercial.
+
+## Limitações relevantes
+
+- A suíte depende de Java 21; com Java 25, Mockito/Byte Buddy falha ao instrumentar mocks.
+- O build Angular passa com warning `NG8011` em `features/auth/login.component.html:100`.
+- A estratégia offline usa AsyncStorage para cache e fila; não foi encontrada suíte automatizada do mobile para provar perda de energia, reprocessamento ou conflito em dispositivo real.
+- O armazenamento local de evidências é o padrão; S3 existe como implementação configurável, mas não foi validado contra AWS.
+- A documentação de Docs contém planos e arquitetura pretendida que não devem ser tratados como estado implementado sem correlação com o código.

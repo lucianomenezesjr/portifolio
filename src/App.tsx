@@ -21,9 +21,10 @@ function useReveal() {
   }, []);
 }
 
-function Icon({ type }: { type: "moon" | "sun" | "menu" | "close" }) {
+function Icon({ type }: { type: "moon" | "sun" | "menu" | "close" | "copy" }) {
   if (type === "menu") return <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>;
   if (type === "close") return <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>;
+  if (type === "copy") return <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" /><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" /></svg>;
   return type === "moon" ? <svg className="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg> : <svg className="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>;
 }
 
@@ -57,11 +58,16 @@ function Header({ lang, setLang }: { lang: Lang; setLang: (lang: Lang) => void }
 function Layers({ lang }: { lang: Lang }) { return <div className="layers" role="img" aria-label={ui("layersAlt", lang)}>{D.layers.map((layer, i) => <div className="layer" style={{ "--i": i } as CSSProperties} key={i}><b>0{i + 1}</b>{t(layer, lang)}</div>).reverse()}</div>; }
 function Cover({ project, lang }: { project: Project; lang: Lang }) {
   if (project.cover === "layers") return <Layers lang={lang} />;
-  if (project.coverImage) return <img src={project.coverImage.src} alt={t(project.coverImage.alt, lang)} loading="lazy" onError={e => e.currentTarget.style.display = "none"} />;
+  const coverImage = project.coverImages?.[lang] ?? project.coverImage;
+  if (coverImage) return <img src={coverImage.src} alt={t(coverImage.alt, lang)} loading="lazy" onError={e => e.currentTarget.style.display = "none"} />;
   if (project.images.length) return <img src={project.images[0].src} alt="" loading="lazy" onError={e => e.currentTarget.style.display = "none"} />;
   return <div className="art" style={{ "--h": project.hue } as CSSProperties} aria-hidden="true"><span>{project.glyph}</span></div>;
 }
 function Tags({ items, lang, core }: { items: Localized[]; lang: Lang; core?: boolean[] }) { return <div className="tags">{items.map((item, i) => <span className={core?.[i] ? "tag--core" : ""} key={i}>{t(item, lang)}</span>)}</div>; }
+function StackDisplay({ project, lang }: { project: Project; lang: Lang }) {
+  if (!project.stackGroups?.length) return <Tags items={project.stack} lang={lang} />;
+  return <div className="stack-groups">{project.stackGroups.map(group => <div className="stack-group" key={String(group.title)}><h5>{t(group.title, lang)}</h5><Tags items={group.items} lang={lang} /></div>)}</div>;
+}
 
 function isValidExternalUrl(value?: string) {
   if (!value) return false;
@@ -105,7 +111,7 @@ function ProjectModal({ project, lang, trigger, onClose }: { project: Project; l
       <div className="modal__intro">
           <div className="card__top"><span className="badge">{t(project.badge, lang)}</span>{project.year && <span className="year">{project.year}</span>}</div>
           <h3 id="modalTitle">{project.title}</h3><p className="modal__summary">{t(project.summary, lang)}</p>
-          <div><h4 className="modal__h">{ui("stack", lang)}</h4><Tags items={project.stack} lang={lang} /></div>
+          <div><h4 className="modal__h">{ui("stack", lang)}</h4><StackDisplay project={project} lang={lang} /></div>
       </div>
       <div className="modal__details">
           <div className="modal__editorial"><div><h4 className="modal__h">{ui("problem", lang)}</h4><p>{t(project.problem, lang)}</p></div><div><h4 className="modal__h">{ui("solution", lang)}</h4><p>{t(project.solution, lang)}</p></div>{project.architecture && <div><h4 className="modal__h">{ui("architecture", lang)}</h4><p>{t(project.architecture, lang)}</p></div>}<div><h4 className="modal__h">{ui("status", lang)}</h4><p>{t(project.status, lang)}</p></div></div>
@@ -118,9 +124,23 @@ function ProjectModal({ project, lang, trigger, onClose }: { project: Project; l
 }
 
 function Contact({ lang }: { lang: Lang }) {
-  const [status, setStatus] = useState(""); const [error, setError] = useState(false);
+  const [status, setStatus] = useState(""); const [error, setError] = useState(false); const [copyFeedback, setCopyFeedback] = useState<"success" | "error" | null>(null);
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); const form = event.currentTarget; const data = new FormData(form); const name = String(data.get("name") || "").trim(); const email = String(data.get("email") || "").trim(); const message = String(data.get("message") || "").trim(); if (!name || !/^\S+@\S+\.\S+$/.test(email) || !message) { setError(true); setStatus(ui("formErr", lang)); return; } setError(false); if (!D.config.formEndpoint) { setStatus(ui("formMailto", lang)); window.location.href = `mailto:${D.config.email}?subject=${encodeURIComponent(`${ui("formSubject", lang)} — ${name}`)}&body=${encodeURIComponent(`${message}\n\n— ${name} (${email})`)}`; } };
-  return <section className="section container contact" id="contato" aria-labelledby="t-contact"><p className="eyebrow reveal">{ui("contactEyebrow", lang)}</p><h2 className="contact__title reveal" id="t-contact">{ui("contactTitle", lang)}</h2><p className="lead reveal">{ui("contactLead", lang)}</p><div className="contact__grid reveal"><form className="form" onSubmit={submit} noValidate><div className="field"><label htmlFor="fName">{ui("formName", lang)}</label><input id="fName" name="name" type="text" autoComplete="name" required /></div><div className="field"><label htmlFor="fEmail">{ui("formEmail", lang)}</label><input id="fEmail" name="email" type="email" autoComplete="email" required /></div><div className="field"><label htmlFor="fMsg">{ui("formMessage", lang)}</label><textarea id="fMsg" name="message" rows={5} required /></div><input className="hp" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" /><button className="btn btn--primary" type="submit">{ui("formSend", lang)}</button><p className={`form__status${error ? " err" : ""}`} role="status">{status}</p></form><div className="direct"><p className="mini-label">{ui("direct", lang)}</p><a className="direct__link" href={`mailto:${D.config.email}`}><span>E-mail</span><small>{D.config.email}</small></a><a className="direct__link" href={D.config.linkedin} target="_blank" rel="noreferrer"><span>LinkedIn</span><small>/in/luciano-júnior</small></a><a className="direct__link" href={D.config.github} target="_blank" rel="noreferrer"><span>GitHub</span><small>/lucianomenezesjr</small></a><a className="direct__link" href={D.config.whatsapp} target="_blank" rel="noreferrer"><span>WhatsApp</span><small>+55 11 99942-2998</small></a></div></div></section>;
+  const copy = async (value: string) => {
+    try {
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(value);
+      else { const area = document.createElement("textarea"); area.value = value; area.style.position = "fixed"; area.style.opacity = "0"; document.body.appendChild(area); area.select(); document.execCommand("copy"); area.remove(); }
+      setCopyFeedback("success");
+    } catch { setCopyFeedback("error"); }
+    window.setTimeout(() => setCopyFeedback(null), 2800);
+  };
+  const contacts = [
+    { label: "E-mail", detail: D.config.email, href: `mailto:${D.config.email}`, value: D.config.email },
+    { label: "LinkedIn", detail: "/in/luciano-júnior", href: D.config.linkedin, value: D.config.linkedin },
+    { label: "GitHub", detail: "/lucianomenezesjr", href: D.config.github, value: D.config.github },
+    { label: "WhatsApp", detail: "+55 11 99942-2998", href: D.config.whatsapp, value: D.config.whatsapp }
+  ];
+  return <section className="section container contact" id="contato" aria-labelledby="t-contact"><p className="eyebrow reveal">{ui("contactEyebrow", lang)}</p><h2 className="contact__title reveal" id="t-contact">{ui("contactTitle", lang)}</h2><p className="lead reveal">{ui("contactLead", lang)}</p><div className="contact__grid reveal"><form className="form" onSubmit={submit} noValidate><div className="field"><label htmlFor="fName">{ui("formName", lang)}</label><input id="fName" name="name" type="text" autoComplete="name" required /></div><div className="field"><label htmlFor="fEmail">{ui("formEmail", lang)}</label><input id="fEmail" name="email" type="email" autoComplete="email" required /></div><div className="field"><label htmlFor="fMsg">{ui("formMessage", lang)}</label><textarea id="fMsg" name="message" rows={5} required /></div><input className="hp" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" /><button className="btn btn--primary" type="submit">{ui("formSend", lang)}</button><p className={`form__status${error ? " err" : ""}`} role="status">{status}</p></form><div className="direct"><p className="mini-label">{ui("direct", lang)}</p>{contacts.map(contact => <div className="direct__row" key={contact.label}><a className="direct__link" href={contact.href} target={contact.label === "E-mail" ? undefined : "_blank"} rel={contact.label === "E-mail" ? undefined : "noreferrer"}><span>{contact.label}</span><small>{contact.detail}</small></a><button className="copy-btn" type="button" onClick={() => void copy(contact.value)} aria-label={`${ui("copyLabel", lang)}: ${contact.label}`} title={ui("copyLabel", lang)}><Icon type="copy" /></button></div>)}</div></div>{copyFeedback && <div className={`copy-toast${copyFeedback === "error" ? " copy-toast--error" : ""}`} role="status" aria-live="polite">{ui(copyFeedback === "success" ? "copySuccess" : "copyError", lang)}</div>}</section>;
 }
 
 export default function App() {

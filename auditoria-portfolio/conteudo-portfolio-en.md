@@ -1,59 +1,47 @@
-# Portfolio content — English
+# Portfolio content — EN
 
-## A. Short description — up to 180 characters
+## Short card description
 
-Personal agent workspace with a product-owned UI, persistent conversations, connectors, MCP tools, approvals, and a Codex runtime boundary.
+Technical inspection platform with an API, admin console and field mobile app for checklists, evidence and review.
 
-## B. Short presentation — 80–120 words
+## Modal summary
 
-Gepeto is a personal agent workspace that separates the product experience from the intelligence runtime. Its React/TypeScript interface includes chat, overview, history, data sources, agents, logs, and settings. The FastAPI backend coordinates conversations and events, while a local adapter communicates with Codex app-server over JSON-RPC/stdio. Conversations, threads, and traces use local persistence; connectors and MCP tools are scoped and can require approval. The repository also keeps an optional local provider and a Tauri desktop application. The current state is alpha: core contracts and tests are in place, while the fully authenticated runtime flow is still being validated.
+FieldOps is a technical inspection management platform connecting administrative planning with field execution. Its Angular console manages clients, sites, equipment, versioned checklist templates, assignments and reviews. A Spring Boot API enforces business rules, role-based authorization, PostgreSQL persistence, evidence storage and an audit trail. In the Expo/React Native app, technicians browse assigned inspections, answer checklists, record non-conformities and capture photos, with a local queue that synchronizes when connectivity returns. The project is in advanced MVP development: the core workflows have automated coverage, while production operation, AWS deployment and visual validation of the mobile app were not proven in this audit.
 
-## C. Technical case study
+## Case study
 
 ### Overview
 
-Gepeto Project is the product layer of the OpenJarvis ecosystem for personal agent workflows.
+FieldOps turns technical inspections into a traceable workflow from planning to review. The solution is divided into an API, an administrative web console and a field application.
 
 ### Problem
 
-Personal assistants often hide runtime, context, tools, and data behind a generic chat surface. Gepeto aims to make those product-owned concerns explicit without reimplementing the agent loop.
+Spreadsheet- and message-based inspections make it difficult to prove which checklist version was used, who answered each item, which evidence was collected and how the final decision was made. Unreliable connectivity adds the risk of interrupting field work or losing data.
 
 ### Goal
 
-Provide a workspace that can start Codex conversations without requiring a downloaded local model, while keeping local inference as an explicit privacy/offline option.
+Centralize planning, execution and review while preserving checklist history and supporting field work in unstable network conditions.
 
 ### Solution
 
-A React UI communicates with a FastAPI API. The conversation service maps Gepeto conversations to Codex threads, streams events through WebSocket, and persists state and redacted traces in SQLite. The MCP bridge applies policy and approvals before exposing tools.
+Administrators publish versioned templates and schedule inspections. The API snapshots checklist items so historical inspections keep their original context. Technicians execute inspections in the mobile app, collecting answers, photos and non-conformities. A local outbox preserves pending mutations and synchronizes them in order. Supervisors review, approve or return an inspection for correction.
 
-### Architecture
+### Architecture and technology
 
-Browser/Tauri → FastAPI → `CodexConversationService` → `CodexAppServerClient` → Codex app-server process → model/tools. Local stores keep conversations, events, and redacted traces.
+Java 21, Spring Boot 3.3.4, Spring Security, Spring Data JPA, PostgreSQL 16, Flyway, JWT, Angular 22, Angular Material, Playwright/axe, Expo 57, React Native 0.86.3, SecureStore, AsyncStorage, NetInfo, Docker Compose, plus configurable local/S3 evidence storage and SES email integration.
 
-### Technologies
+### Functionality
 
-Python, FastAPI, Uvicorn, React, TypeScript, Vite, Zustand, WebSocket, SQLite, JSON-RPC, MCP, OAuth/PKCE, Tauri/Rust, Docker, systemd, and Windows deployment scripts.
+Authentication and password recovery; users and roles; clients, sites and equipment; QR identification; checklist template versioning; planning and assignment; answers; photographic evidence; non-conformities; review; audit events; offline cache/outbox and synchronization endpoints.
 
-### Implemented functionality
+### Business flow
 
-The repository contains the chat shell, overview, settings, connectors, agents, logs, thread persistence, event envelopes, cancellation, approvals, diagnostics, MCP policy, and tracing. Core protocol contracts have automated tests.
+Published template → assigned inspection → technician execution → answers/evidence → submission → review → approval or correction.
 
-### Technical challenges
+### Engineering challenges
 
-Safe subprocess lifecycle, event correlation, deduplication, owner/project scope, redaction, token-safe OAuth, and compatibility between the Gepeto product identity and OpenJarvis legacy identifiers.
+The central challenges are preserving checklist versions through snapshots, enforcing domain-level authorization, maintaining offline operation order and validating files before storage. These choices improve traceability and safety, but introduce eventual consistency and require device-level testing.
 
-### Current state
+### Current state and next steps
 
-Alpha and still under release review. In this audit, frontend build and selected tests passed and the real UI was captured locally; no authenticated Codex conversation was run.
-
-### Next steps
-
-Complete OAuth/client registration, validate native MCP transport, run an authenticated smoke test, improve replay/cancellation, clarify Codex-only health/model endpoints, build Tauri artifacts, and refine mobile layout.
-
-## D. LinkedIn-ready summary
-
-I am documenting Gepeto, an author-built personal agent workspace built on the OpenJarvis ecosystem.
-
-The architecture separates product-owned experience and data from the agent loop: React/TypeScript and FastAPI handle the UI, conversations, connectors, approvals, and observability, while Codex app-server is integrated through a local thread-and-event boundary. The project also includes MCP policy, SQLite persistence, redacted traces, an optional local inference path, and a Tauri desktop surface.
-
-The current audit passed the frontend build and selected automated tests and captured the real interface locally. The fully authenticated flow is still being validated, so I am presenting Gepeto as an alpha project and using its release gate to guide the next engineering steps.
+The code and automated tests demonstrate a coherent functional core. Next steps are real end-to-end validation for every role, Android/iOS execution, failure-oriented sync testing and the operational work required for production, privacy, retention and deployment.

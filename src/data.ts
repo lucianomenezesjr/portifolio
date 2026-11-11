@@ -2,11 +2,12 @@ export type Lang = "pt" | "en";
 export type Localized = string | { pt: string; en: string };
 
 export interface ProjectImage { src: string; alt: Localized }
+export interface ProjectStackGroup { title: Localized; items: Localized[] }
 export interface Project {
   id: string; title: string; year?: string; kinds: string[]; hue: number; glyph: string;
   category: "featured" | "other"; priority?: number; problem: Localized; solution: Localized; status: Localized; architecture?: Localized;
   challenges?: Localized[]; cover?: string; badge: Localized; summary: Localized; details: Record<Lang, string[]>;
-  stack: string[]; images: ProjectImage[]; coverImage?: ProjectImage; repo?: string; demo?: string;
+  stack: string[]; stackGroups?: ProjectStackGroup[]; images: ProjectImage[]; coverImage?: ProjectImage; coverImages?: Partial<Record<Lang, ProjectImage>>; repo?: string; demo?: string;
 }
 export interface PortfolioData {
   config: { siteUrl: string; email: string; github: string; linkedin: string; whatsapp: string; cv: string; cvEn: string; formEndpoint: string };

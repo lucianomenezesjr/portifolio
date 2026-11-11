@@ -1,29 +1,39 @@
-# Desafios e decisões técnicas
+# Desafios técnicos demonstrados
 
-## Delegar o loop ao Codex
+## Múltiplos clientes
 
-Problema: duplicar loop de agente, ferramentas, approvals e lifecycle aumentaria complexidade. Decisão: Codex app-server é a fronteira primária (`docs/gepeto/kb/decisions.md`, D-002). O adapter preserva thread/turn/eventos em vez de transformar tudo em uma chamada simples de inferência.
+O mesmo contrato REST atende Angular e React Native, com permissões e necessidades diferentes. O admin usa filtros/paginação; o mobile usa cache, retry e payloads simples. O trade-off é manter dois clientes sincronizados com um backend comum; serviços explícitos e testes de contrato reduzem esse risco.
 
-## Lifecycle de subprocesso
+Evidências: `interface-administrativa/src/app/features/*/*.service.ts`, `mobile/src/api/endpoints.ts`, controllers API.
 
-`codex_app_server.py` usa argv explícito, `shell=False`, leitores separados de stdout/stderr, timeouts, IDs correlacionados, buffer de eventos e shutdown determinístico. Trade-off: a aplicação depende do schema e versão do CLI instalado; o próprio KB registra incertezas de schemas futuros.
+## Integridade de checklist versionado
 
-## Streaming e estado terminal
+Inspeções não apontam diretamente para um draft mutável: a API exige versão publicada/ativa e copia itens para `inspection_item_snapshot`. Isso protege o histórico quando o template evolui, ao custo de duplicar dados e exigir manutenção do snapshot.
 
-Eventos chegam fora de ordem lógica em relação às respostas solicitadas. O serviço publica sequência/event ID, o frontend deduplica e o store não trata falha/interrupção como sucesso. A pendência é replay por cursor em reconexões longas e smoke visual autenticado (`GEP-004.1`, `GEP-002.5`).
+Evidências: `InspectionService.java:98-153`; migrations V1; `TemplateVersioningTest.java`.
 
-## Segurança de approvals e tools
+## Transições e autorização
 
-O bridge filtra manifest por projeto/sessão e exige approval de uso único para escrita/destruição, vinculado aos argumentos. Isso reduz replay indevido, mas a integração do bridge ao transporte MCP nativo do Codex ainda está aberta (`GEP-003.2`).
+As transições são protegidas no service, não somente na tela. O técnico vinculado inicia/submete; o supervisor revisa; admin/supervisor planejam e cancelam. Isso evita confiar em guards do frontend, mas exige que cada novo endpoint mantenha a mesma matriz de autorização.
 
-## OAuth sem expor tokens
+Evidências: `InspectionService.java:267-331`, controllers com `@PreAuthorize`, `InspectionWorkflowTest.java`.
 
-O token store vive fora do repo, o browser recebe apenas URL/estado, e o processo filho recebe access token mínimo. O desafio restante é a integração real do registro/client ID, validação completa de ID token/JWKS e teste com app-server autenticado (`GEP-002.3`).
+## Offline-first
 
-## Separação de produto e legado
+O mobile persiste cache e uma fila ordenada de mutações. Operações transitórias permanecem na fila; erros 4xx permanentes são removidos com mensagem; o retorno de conectividade drena automaticamente. A ordem é importante porque submit depende das respostas anteriores. O trade-off é consistência eventual e necessidade de UX para falhas permanentes/conflitos.
 
-O produto se chama Gepeto, mas o pacote, rotas antigas e diversos identificadores ainda são `openjarvis` por compatibilidade. Isso reduz risco de migração, porém aumenta carga editorial e exige distinguir produto, runtime e legado.
+Evidências: `mobile/src/offline/queue.ts:4-11,15-27`, `SyncContext.tsx:28-135`, V4, `SyncIntegrationTest.java`.
 
-## Observabilidade sem segredos
+## Evidências e segurança de arquivos
 
-Traces SQLite, redaction, correlation IDs e diagnostics são implementados. O trade-off é que a redaction reduz fidelidade diagnóstica; a própria documentação deixa instrumentação automática de tool/approval e retenção configurável como próximas etapas.
+O backend recebe multipart, detecta tipo/tamanho e abstrai o storage local/S3. Os testes cobrem extensão, MIME, limite, compensação e conteúdo spoofado; o desafio restante é provar configuração e permissões S3 em ambiente real.
+
+Evidências: `EvidenceService.java`, `EvidenceStorageTest.java`, `EvidenceServiceTest.java`, `application.yml:22-28`.
+
+## Rastreabilidade
+
+Eventos carregam inspeção, entidade, ator, timestamp e request id; o filtro de correlação aparece no shared. Isso melhora investigação, mas a política de retenção e exportação dos logs não foi encontrada.
+
+## Qualidade e manutenção
+
+Há testes unitários, integração real com Flyway/PostgreSQL e Playwright com axe/snapshots. O principal risco observado é o desalinhamento de runtime: a suíte exige Java 21 para funcionar com a versão atual de Byte Buddy/Mockito. O mobile tem typecheck, mas não uma suíte automatizada equivalente.
